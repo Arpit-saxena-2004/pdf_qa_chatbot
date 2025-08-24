@@ -4,7 +4,7 @@ import tempfile
 import asyncio
 import nest_asyncio
 from langchain_community.document_loaders import PyPDFLoader
-from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
 from langchain_core.output_parsers import StrOutputParser
 from langchain.schema.runnable import RunnableParallel, RunnablePassthrough, RunnableLambda
@@ -100,7 +100,7 @@ def load_and_process_pdf(uploaded_file, api_key):
         status_text.text("🗄️ Creating vector database...")
         progress_bar.progress(80)
         
-        db = Chroma.from_documents(
+        db = FAISS.from_documents(
             documents=chunks,
             embedding=embeddings,
             persist_directory=None  # Use in-memory storage for deployment
