@@ -102,8 +102,7 @@ def load_and_process_pdf(uploaded_file, api_key):
         
         db = FAISS.from_documents(
             documents=chunks,
-            embedding=embeddings,
-            persist_directory=None  # Use in-memory storage for deployment
+            embedding=embeddings # Use in-memory storage for deployment
         )
         
         retriever = db.as_retriever(
